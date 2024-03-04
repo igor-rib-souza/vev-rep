@@ -19,6 +19,9 @@ public class TarefaService {
     public void createTarefa(String titulo, String descricao, java.util.Date dataValidade, enums.Prioridade prioridade) {
         Long id = Long.valueOf(tarefaRepository.getTarefasSize());
         TarefaDTO tarefa = new TarefaDTO(id, titulo, descricao, dataValidade, prioridade);
+        if (tarefa.getTitulo() == null || tarefa.getDescricao() == null || tarefa.getDataValidade() == null || tarefa.getPrioridade() == null) {
+            return;
+        }
         tarefaRepository.createTarefa(tarefa);
     }
 
