@@ -1,6 +1,4 @@
-import DTOs.TarefaDTO;
-import controller.TarefaController;
-import enums.Prioridade;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -28,10 +26,39 @@ public class GerenciadorTarefasTests {
 
             assertEquals(1, tarefaController.getTarefasSize());
             
-            assertEquals(tarefaController.getTarefa(1L).getTitulo(),"titulo" );
-            assertEquals(tarefaController.getTarefa(1L).getDescricao(),"descricao" );
-            assertEquals(tarefaController.getTarefa(1L).getPrioridade(),Prioridade.ALTA );
         }
+
+        @Test
+        @DisplayName("Teste deleteTarefa")
+        public void testDeleteTarefa() {
+            assertEquals(0, tarefaController.getTarefasSize());
+
+            tarefaController.createTarefa(1L, "titulo", "descricao", new Date(), Prioridade.ALTA);
+
+            assertEquals(1, tarefaController.getTarefasSize());
+
+            tarefaController.deleteTarefa(1L);
+
+            assertEquals(0, tarefaController.getTarefasSize());
+        }
+
+        @Test
+        @DisplayName("Teste getTarefa")
+        public void testGetTarefa() {
+            assertEquals(0, tarefaController.getTarefasSize());
+
+            tarefaController.createTarefa(1L, "titulo", "descricao", new Date(), Prioridade.ALTA);
+
+            assertEquals(1, tarefaController.getTarefasSize());
+
+            TarefaDTO tarefa = tarefaController.getTarefa(1L);
+
+            assertEquals(tarefa.getTitulo(), "titulo");
+            assertEquals(tarefa.getDescricao(), "descricao");
+            assertEquals(tarefa.getPrioridade(), Prioridade.ALTA);
+        }
+
+
     }
 
 
