@@ -58,6 +58,23 @@ public class GerenciadorTarefasTests {
             assertEquals(tarefa.getPrioridade(), Prioridade.ALTA);
         }
 
+        @Test
+        @DisplayName("Teste updateTarefa")
+        public void testUpdateTarefa() {
+            assertEquals(0, tarefaController.getTarefasSize());
+
+            tarefaController.createTarefa(1L, "titulo", "descricao", new Date(), Prioridade.ALTA);
+
+            assertEquals(1, tarefaController.getTarefasSize());
+
+            tarefaController.updateTarefa(1L, "titulo2", "descricao2", new Date(), Prioridade.BAIXA);
+
+            TarefaDTO tarefa = tarefaController.getTarefa(1L);
+
+            assertEquals(tarefa.getTitulo(), "titulo2");
+            assertEquals(tarefa.getDescricao(), "descricao2");
+            assertEquals(tarefa.getPrioridade(), Prioridade.BAIXA);
+        }
 
     }
 
