@@ -1,5 +1,6 @@
-
-import org.junit.jupiter.api.Assertions;
+import DTOs.TarefaDTO;
+import controller.TarefaController;
+import enums.Prioridade;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
