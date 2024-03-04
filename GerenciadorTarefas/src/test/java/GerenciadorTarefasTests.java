@@ -62,7 +62,7 @@ public class GerenciadorTarefasTests {
 
             assertEquals(1, tarefaController.getTarefasSize());
 
-            tarefaController.deleteTarefa(1L);
+            tarefaController.deleteTarefa(0L);
 
             assertEquals(0, tarefaController.getTarefasSize());
         }
