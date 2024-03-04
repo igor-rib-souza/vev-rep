@@ -76,7 +76,7 @@ public class GerenciadorTarefasTests {
 
             assertEquals(1, tarefaController.getTarefasSize());
 
-            TarefaDTO tarefa = tarefaController.getTarefa(1L);
+            TarefaDTO tarefa = tarefaController.getTarefa(0L);
 
             assertEquals(tarefa.getTitulo(), "titulo");
             assertEquals(tarefa.getDescricao(), "descricao");
