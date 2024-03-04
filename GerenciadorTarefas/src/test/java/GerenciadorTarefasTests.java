@@ -5,8 +5,10 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class GerenciadorTarefasTests {
 
@@ -22,10 +24,32 @@ public class GerenciadorTarefasTests {
         public void testCreateTarefa() {
             assertEquals(0, tarefaController.getTarefasSize());
 
-            tarefaController.createTarefa(1L, "titulo", "descricao", new Date(), Prioridade.ALTA);
+            tarefaController.createTarefa("titulo", "descricao", new Date(), Prioridade.ALTA);
 
             assertEquals(1, tarefaController.getTarefasSize());
             
+        }
+
+        @Test
+        @DisplayName("Teste createTarefa sem algum atributo")
+        public void testCreateTarefaSemPrioridade() {
+            assertEquals(0, tarefaController.getTarefasSize());
+
+            //Sem Prioridade
+            tarefaController.createTarefa("titulo", "descricao", new Date(), null);
+            assertEquals(0, tarefaController.getTarefasSize());
+
+            //Sem Data
+            tarefaController.createTarefa("titulo", "descricao", null, Prioridade.ALTA);
+            assertEquals(0, tarefaController.getTarefasSize());
+
+            //Sem Descrição
+            tarefaController.createTarefa("titulo", null, new Date(), Prioridade.ALTA);
+            assertEquals(0, tarefaController.getTarefasSize());
+
+            //Sem Titulo
+            tarefaController.createTarefa(null, "descricao", new Date(), Prioridade.ALTA);
+            assertEquals(0, tarefaController.getTarefasSize());
         }
 
         @Test
@@ -33,7 +57,7 @@ public class GerenciadorTarefasTests {
         public void testDeleteTarefa() {
             assertEquals(0, tarefaController.getTarefasSize());
 
-            tarefaController.createTarefa(1L, "titulo", "descricao", new Date(), Prioridade.ALTA);
+            tarefaController.createTarefa("titulo", "descricao", new Date(), Prioridade.ALTA);
 
             assertEquals(1, tarefaController.getTarefasSize());
 
@@ -47,7 +71,7 @@ public class GerenciadorTarefasTests {
         public void testGetTarefa() {
             assertEquals(0, tarefaController.getTarefasSize());
 
-            tarefaController.createTarefa(1L, "titulo", "descricao", new Date(), Prioridade.ALTA);
+            tarefaController.createTarefa("titulo", "descricao", new Date(), Prioridade.ALTA);
 
             assertEquals(1, tarefaController.getTarefasSize());
 
@@ -59,11 +83,29 @@ public class GerenciadorTarefasTests {
         }
 
         @Test
+        @DisplayName("Teste getTarefasbyDate")
+        public void testGetTarefasbyDate() {
+            assertEquals(0, tarefaController.getTarefasSize());
+
+            tarefaController.createTarefa("titulo", "descricao", new Date(), Prioridade.BAIXA);
+            tarefaController.createTarefa("titulo", "descricao", new Date(), Prioridade.ALTA);
+            tarefaController.createTarefa("titulo", "descricao", new Date(), Prioridade.MEDIA);
+
+            List<TarefaDTO> tarefas = tarefaController.getTarefasbyDate();
+
+            assertTrue(tarefas.get(0).getPrioridade() == Prioridade.ALTA && 
+                        tarefas.get(1).getPrioridade() == Prioridade.MEDIA && 
+                        tarefas.get(2).getPrioridade() == Prioridade.BAIXA
+                        );
+
+        }
+
+        @Test
         @DisplayName("Teste updateTarefa")
         public void testUpdateTarefa() {
             assertEquals(0, tarefaController.getTarefasSize());
 
-            tarefaController.createTarefa(1L, "titulo", "descricao", new Date(), Prioridade.ALTA);
+            tarefaController.createTarefa("titulo", "descricao", new Date(), Prioridade.ALTA);
 
             assertEquals(1, tarefaController.getTarefasSize());
 
